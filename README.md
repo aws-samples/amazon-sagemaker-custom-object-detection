@@ -33,7 +33,7 @@ This project demonstrates how you can set up a custom object detection model and
 
 ### Install Instructions
 
-Download and install this CloudFormation template: https://raw.githubusercontent.com/paulfryer/custom-object-detection/master/initialization-template.json
+Download and install this CloudFormation template: https://raw.githubusercontent.com/aws-samples/amazon-sagemaker-custom-object-detection/master/initialization-template.json
 
 Use the name "cod" (for custom object detection) for the stack name.
 
