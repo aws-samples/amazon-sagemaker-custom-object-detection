@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <AWSProjectType>Lambda</AWSProjectType>
+    <AssemblyName>SessionProcessor</AssemblyName>
+    <RootNamespace>SessionProcessing</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Amazon.Lambda.Core" Version="1.0.0" />
+    <PackageReference Include="Amazon.Lambda.Serialization.Json" Version="1.4.0" />
+    <PackageReference Include="AWSSDK.CloudWatch" Version="3.3.10.6" />
+    <PackageReference Include="AWSSDK.CloudWatchEvents" Version="3.3.8.6" />
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.3.17" />
+    <PackageReference Include="AWSSDK.SimpleSystemsManagement" Version="3.3.37.6" />
+  </ItemGroup>
+
+</Project>

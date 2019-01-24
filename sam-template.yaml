@@ -1,0 +1,69 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Resources:
+    ImageProcessorFunction:
+        Type: AWS::Serverless::Function
+        Properties:
+            CodeUri: ./ImageProcessor/bin/Debug/netcoreapp2.1/publish/
+            Handler: ImageProcessor::ImageProcessor.Function::FunctionHandler
+            Runtime: dotnetcore2.1
+            Timeout: 100
+            Policies:
+             - AWSLambdaExecute # Managed Policy
+             - Version: '2012-10-17' # Policy Document
+               Statement:
+                 - Effect: Allow
+                   Action:
+                     - cloudwatch:*
+                     - ssm:*
+                     - rekognition:*
+                     - sagemaker:*
+                     - s3:*
+                   Resource: '*'
+    SessionProcessorFunction:
+        Type: AWS::Serverless::Function
+        Properties:
+            CodeUri: ./SessionProcessor/bin/Debug/netcoreapp2.1/publish/
+            Handler: SessionProcessor::SessionProcessor.Function::FunctionHandler
+            Runtime: dotnetcore2.1
+            Timeout: 100
+            Policies:
+             - AWSLambdaExecute # Managed Policy
+             - Version: '2012-10-17' # Policy Document
+               Statement:
+                 - Effect: Allow
+                   Action:
+                     - cloudwatch:*
+                     - ssm:*
+                     - dynamodb:*
+                   Resource: '*'
+            Events:
+                ProcessSessions:
+                  Type: Schedule
+                  Properties:
+                    Schedule: rate(1 minute)
+    DeepLensMotionDetection:
+        Type: 'AWS::Serverless::Function'
+        Properties:
+          CodeUri: ./DetectMovement/
+          Handler: lambda.function_handler
+          MemorySize: 1536
+          Runtime: python2.7
+          Timeout: 30
+    TrackedSessionsTable:
+        Type: AWS::DynamoDB::Table
+        Properties:
+            AttributeDefinitions:
+             - AttributeType: S
+               AttributeName: SessionId
+             #- AttributeType: S
+             #  AttributeName: Started
+             #- AttributeType: S
+             #  AttributeName: Ended
+             #- AttributeType: S
+             #  AttributeName: Items
+            BillingMode: PAY_PER_REQUEST
+            KeySchema:
+             - AttributeName: SessionId
+               KeyType: HASH
+            TableName: TrackedSessions

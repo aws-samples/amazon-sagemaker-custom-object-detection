@@ -1,0 +1,14 @@
+﻿<script src="https://assets.crowd.aws/crowd-html-elements.js"></script>
+<crowd-form>
+    <crowd-semantic-segmentation name="crowd-semantic-segmentation"
+                                 src="{{ task.input.taskObject | grant_read_access }}"
+                                 header="draw polygon around the boxes."
+                                 labels="{{ task.input.labels | to_json | escape }}">
+        <full-instructions header="Segmentation instructions">
+            <ol><li><strong>Read</strong> the task carefully and inspect the image.</li><li><strong>Read</strong> the options and review the examples provided to understand more about the labels.</li><li><strong>Choose</strong> the appropriate label that best suits the image.</li></ol>
+        </full-instructions>
+        <short-instructions>
+            <h2><br></h2>
+        </short-instructions>
+    </crowd-semantic-segmentation>
+</crowd-form>

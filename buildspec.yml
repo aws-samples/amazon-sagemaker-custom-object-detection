@@ -1,0 +1,32 @@
+version: 0.1
+phases:
+  install:
+    commands:
+      - sudo pip install --upgrade pip
+      - sudo pip install awscli --upgrade
+      - sudo pip install aws-sam-cli 
+  pre_build:
+    commands:
+      - sam --version
+      - aws --version
+      - echo $CODEBUILD_BUILD_ARN
+      - echo $ARTIFACT_BUCKET
+  build:
+    commands:
+      - cd DetectMovement && sudo bash build.sh
+      - dotnet publish ImageProcessor
+      - dotnet publish SessionProcessor
+      - sam package --template-file sam-template.yaml --s3-bucket $ARTIFACT_BUCKET --output-template-file packaged-sam-template.yaml
+      - sam deploy --template-file ./packaged-sam-template.yaml --stack-name CustomObjectDetection --capabilities CAPABILITY_IAM
+      - dotnet build ModelBuilder
+      - dotnet publish -c release ModelBuilder
+  post_build:
+    commands:
+      - dotnet new console --name Builder
+      - sed -i 's/Console.WriteLine("Hello World!")/DotStep.Builder.DotStepBuilder.BuildTemplate(args[0])/g' Builder/Program.cs
+      - cd Builder && dotnet add package DotStep.Builder && dotnet add package DotStep.Common && dotnet build && dotnet bin/Debug/netcoreapp2.1/Builder.dll ../ModelBuilder/bin/Debug/netcoreapp2.1/
+      - ls -r
+artifacts:
+  files:
+    - ModelBuilder/bin/release/netcoreapp2.1/publish/**/*
+  discard-paths: yes
