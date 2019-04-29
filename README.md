@@ -88,5 +88,5 @@ When a person walks into the camera frame a new session will be started, when th
 
 | Parameter Name        | Required | Example Value | Description           |
 |:-------------|:-------------|:---------------|:-----------|
-| /Cameras/{deeplenseId}/ObservationBoundingBox | No  | 428,0,993,760 | If you provide this value the lambda function that is looking at camera frames will narrow it's area of observation to just this bounding box. The value represents two points X,Y upper left and X,Y lower right. Concatenate all values together and seperate with a comma. |
+| /Cameras/{deeplenseId}/ObservationBoundingBox | No  | 428,0,993,760 | If you provide this value the lambda function that is looking at camera frames will narrow it's area of observation to just this bounding box. The value represents two points X,Y upper left and X,Y lower right. Concatenate all values together and seperate with a comma. [Example of use in code](/ImageProcessor/Function.cs#L100) |
 
