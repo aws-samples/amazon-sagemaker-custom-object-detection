@@ -83,3 +83,10 @@ Create a trigger for the "ImageProcessor" function. This will be an S3 trigger o
 Once the Step Function completes you can start to view sessions and objects taken from scene can be viewed in a DynamoDB table named "TrackedSessions".
 
 When a person walks into the camera frame a new session will be started, when the person walks out of frame the session will end. If there are not items observed to be taken the session will be deleted. If there are items observed to be taken, they will be added to the session shopping cart.
+
+### SSM Parameters
+
+| Parameter Name        | Required | Example Value | Description           |
+|:-------------|:-------------|:---------------|:-----------|
+| /Cameras/{deeplenseId}/ObservationBoundingBox | No  | 428,0,993,760 | If you provide this value the lambda function that is looking at camera frames will narrow it's area of observation to just this bounding box. The value represents two points X,Y upper left and X,Y lower right. Concatenate all values together and seperate with a comma. |
+
