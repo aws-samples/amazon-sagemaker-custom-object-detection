@@ -3,7 +3,7 @@
   "Parameters": {
     "SourceCodeZip": {
       "Type": "String",
-      "Default": "https://codeload.github.com/paulfryer/custom-object-detection/zip/master"
+      "Default": "https://codeload.github.com/aws-samples/amazon-sagemaker-custom-object-detection/zip/master"
     },
     "SourceCodeDirectory": {
       "Type": "String",
