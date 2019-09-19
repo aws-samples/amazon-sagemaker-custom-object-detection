@@ -97,7 +97,7 @@
         "Handler": "index.handler",
         "MemorySize": 128,
         "Role": { "Fn::GetAtt": [ "CodeInitializerRole", "Arn" ] },
-        "Runtime": "nodejs10.x",
+        "Runtime": "nodejs8.10",
         "Timeout": 120
       }
     },
@@ -672,7 +672,7 @@
         "Handler": "index.handler",
         "MemorySize": 128,
         "Role": { "Fn::GetAtt": [ "CloudFormationDeployerFunctionRole", "Arn" ] },
-        "Runtime": "nodejs10.x",
+        "Runtime": "nodejs8.10",
         "Timeout": 120
       }
     },
